@@ -1,0 +1,18 @@
+A. MACHINE LEARNING MODEL
+- The user should be able to mention which is the target variable
+- Should I encode categorical data or remove them completely
+- The python programme should be able to iterate through all columns and fill in the NaN values(with a constant or mean or median)
+    1. For the above we can see if the values are continuous or discrete
+    2. If continuous, fill with median() else fill with a constant value like 0
+- It should also be able to find the index of the column and make it the target variable whereas all the others will be training variables
+-Then it should train the model 
+- find the AUC using numpy
+- Visualize it using an external library
+
+B. FRONT_END
+- The user should be able to upload a csv (maybe excel file)
+- The server should eventually store it in the same file as the main file 
+(not a good idea but should work for now. Can we save it in C drive? - Path problems might arise)
+- On submit, it should go to the app route of predictions which will remove everything and just show the graph
+- There should be a button to help transition between the web pages
+
