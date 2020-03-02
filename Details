@@ -7,6 +7,12 @@ A. MACHINE LEARNING MODEL
 - It should also be able to find the index of the column and make it the target variable whereas all the others will be training variables
 -Then it should train the model 
 - find the AUC using numpy
+    1. This is found by TPR against FPR for various threshold values
+    2. FPR = 1 - sensitivity
+    3. To calculate TPR:
+        a. iterate over the actual array and predicted array
+        b. Count the times that the predicted array has 1 when the actual array has 1
+- Alternative way: Use pandas to get confusion matrix (Ask if this is okay)
 - Visualize it using an external library
 
 B. FRONT_END
