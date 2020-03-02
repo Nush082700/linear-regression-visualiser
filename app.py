@@ -1,33 +1,22 @@
-import numpy as np
-from flask import Flask, request, jsonify, render_template
-import pickle
+import os
+from flask import Flask, request, render_template, url_for, redirect
 
 app = Flask(__name__)
-model = pickle.load(open('model.pkl', 'rb'))
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+@app.route("/")
+def fileFrontPage():
+    return render_template('fileform.html')
 
-@app.route('/predict',methods=['POST'])
-def predict():
+@app.route("/handleUpload", methods=['POST'])
+def handleFileUpload():
+    # create a part of the form which takes in the user-name 
+    if 'photo' in request.files:
+        photo = request.files['photo']
+        photo.save(photo.filename)
+        if photo.filename != '':            
+            photo.save(os.path.join('/Users/libraryuser/Desktop/linear-regression-visualiser', photo.filename))
+    # return redirect(url_for('fileFrontPage'))
+    return "File uploaded succesfully"
 
-    int_features = [int(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    prediction = model.predict(final_features)
-
-    output = round(prediction[0], 2)
-
-    return render_template('index.html', prediction_text='Sales should be $ {}'.format(output))
-
-@app.route('/results',methods=['POST'])
-def results():
-
-    data = request.get_json(force=True)
-    prediction = model.predict([np.array(list(data.values()))])
-
-    output = prediction[0]
-    return jsonify(output)
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug = True)     
