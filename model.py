@@ -86,7 +86,7 @@ def main_imp(fname, target_feature):
         tpr.append(matrix[0][0]/(matrix[0][0]+matrix[1][0]))
         fpr.append(1 - (matrix[1][1]/(matrix[0][1]+matrix[1][1])))
     
-    # return len(Y_pred)
+    return len(Y_pred)
     # plot_roc_curve(fpr,tpr)
     # print("ML model running succesfully")
     # pickle.dump(regressor,open(".../model.pkl","wb"))

@@ -61,7 +61,7 @@ def result():
     
     to_predict_list = request.form.to_dict()
     val_lst = list(to_predict_list.values())
-    print(val_lst)
+    # print(val_lst)
     # model = pickle.load(open("model.pkl","rb"))
     score = mdl.main_imp(f_name,val_lst[-1])
     # prediction = "Yay! It worked"
