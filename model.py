@@ -6,6 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 from sklearn.model_selection import train_test_split 
 
+
 def categorical_to_continuous(df):
     lst = []
     for i in df.columns:
@@ -62,7 +63,7 @@ def confusion_matrix(Y_pred,Y_test,threshold):
 
 
 
-def main():
+def main_imp(fname, target_feature):
     #use the filename when uploading the csv
     dataset = pd.read_csv('train.csv')
     pred_var = "Survived" #this needs to have its own inputs
@@ -84,6 +85,8 @@ def main():
         matrix = confusion_matrix(Y_pred,Y_test,i)
         tpr.append(matrix[0][0]/(matrix[0][0]+matrix[1][0]))
         fpr.append(1 - (matrix[1][1]/(matrix[0][1]+matrix[1][1])))
-
-    plot_roc_curve(fpr,tpr)
-    pickle.dump(regressor,open(".../model.pkl","wb"))
+    
+    # return len(Y_pred)
+    # plot_roc_curve(fpr,tpr)
+    # print("ML model running succesfully")
+    # pickle.dump(regressor,open(".../model.pkl","wb"))
