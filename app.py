@@ -2,14 +2,18 @@ import os
 from flask import Flask, request, render_template, url_for, redirect
 import pickle
 import model as mdl
+import model_viz as viz
+import plotly
+import plotly.graph_objs as go
+
+import pandas as pd
+import numpy as np
+import json
+
 
 app = Flask(__name__)
 
-@app.route("/")
-def fileFrontPage():
-    return render_template('fileform.html')
-
-
+#Helper Functions begin here
 def upload_file(req):
     if req.method != 'POST': return
 
@@ -48,6 +52,33 @@ def upload_file(req):
             return f.filename
             pass
     
+
+# def create_plot(fpr,tpr):
+#     # N = 40
+#     # x = np.linspace(0, 1, N)
+#     # y = np.random.randn(N)
+#     # df = pd.DataFrame({'fpr': fpr, 'tpr': tpr}) # creating a sample dataframe
+
+#     # print("the data frame is")
+#     # print(df)
+
+#    fig = go.Figure(
+#     data=[go.Bar(y=[2, 1, 3])],
+#     layout_title_text="A Figure Displayed with the 'svg' Renderer"
+#     )
+#     fig.show(renderer="svg")
+
+#     # graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+#     # print("the type of return is")
+#     # print(type(graphJSON))
+#     # return graphJSON
+# # Helper functions end here
+
+
+@app.route("/")
+def fileFrontPage():
+    return render_template('fileform.html')
+    
 @app.route("/result", methods=['POST'])
 def result():
     f_name = upload_file(request)
@@ -63,9 +94,19 @@ def result():
     val_lst = list(to_predict_list.values())
     # print(val_lst)
     # model = pickle.load(open("model.pkl","rb"))
-    score = mdl.main_imp(f_name,val_lst[-1])
+    fpr,tpr = mdl.main_imp(f_name,val_lst[-1])
+    # score = mdl.main_imp(f_name,val_lst[-1])
     # prediction = "Yay! It worked"
-    return render_template("result.html",prediction=score)
+    # scp,div1 = viz.make_plot()
+    # return render_template("graph.html",script=scp, div=div1)
+    # return create_plot(fpr,tpr)
+    fig = go.Figure(
+    data=[go.Bar(y=[2, 1, 3])],
+    layout_title_text="A Figure Displayed with the 'svg' Renderer"
+    )
+    fig.show(renderer="chrome")
+    # return render_template('index.html', plot = line) #this has changed
+    # return render_template("result.html",prediction=score)
 
     # return redirect(url_for('fileFrontPage'))
 

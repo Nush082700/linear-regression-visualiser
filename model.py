@@ -33,10 +33,10 @@ def fill_nan_vals (df):
     return df.fillna(0)
 
 def plot_roc_curve(fpr,tpr):
-    print("the false positive rate array is")
-    print(fpr)
-    print("the true positive rate array is")
-    print(tpr)
+    # print("the false positive rate array is")
+    # print(fpr)
+    # print("the true positive rate array is")
+    # print(tpr)
     plt.plot(fpr, tpr, color='orange', label = 'AUC = %0.2f' % 0.5)
     plt.plot([0, 1], [0, 1], color='darkblue', linestyle='--')
     plt.xlabel('False Positive Rate')
@@ -86,7 +86,7 @@ def main_imp(fname, target_feature):
         tpr.append(matrix[0][0]/(matrix[0][0]+matrix[1][0]))
         fpr.append(1 - (matrix[1][1]/(matrix[0][1]+matrix[1][1])))
     
-    return len(Y_pred)
+    return fpr,tpr
     # plot_roc_curve(fpr,tpr)
     # print("ML model running succesfully")
     # pickle.dump(regressor,open(".../model.pkl","wb"))
