@@ -5,7 +5,7 @@ Requirements:
 4. Pandas
 4. Sklearn
 
-
+All the csv files inteded for testing are in the folder csv_files
 Details:
 1. for sonar_csv
     - predicted class: Class
