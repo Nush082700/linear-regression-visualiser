@@ -3,3 +3,4 @@ Requirements:
 2. Plotly
 3. Numpy
 4. Pandas
+4. Sklearn
