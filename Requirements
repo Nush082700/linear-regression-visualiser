@@ -1,0 +1,5 @@
+Requirements:
+1. Flask
+2. Plotly
+3. Numpy
+4. Pandas
