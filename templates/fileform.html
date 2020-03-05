@@ -1,15 +1,37 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Simple file upload using Python Flask</title>
-    </head>
-    <body>
-        <h3> Linear Regression Estimator</h3>
-        <div>
-            <form action="/result" method="post" enctype="multipart/form-data">
-                Choose the file: <input type="file" name="photo"/><BR>
-                Name of the Predicted field: <input type = "text" name = "fin-feature"> <BR>
-                    <input type="submit" value="Submit"/><BR>    
-            </form> 
-        </div>
-    </body>
-</html>
+<title>webapp flask+ml</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+<header class="w3-container w3-teal">
+  <h1>Linear Regression ROC Estimator</h1>
+</header>
+
+<div class="w3-container w3-half w3-margin-top">
+
+<form class="w3-container w3-card-4" action="/result" method="post" enctype="multipart/form-data">
+
+<p>
+<label>Name of the Field to predict</label>
+<input class="w3-input" type="text" style="width:90%" name = "fin-feature" required >
+</p>
+<br>
+<br>
+<p>
+    <label> The csv file to be uploaded</label>
+    <input class="w3-input" type="file" style="width:90%" name = "photo" required >
+</p>
+<br>
+<br>
+<p>
+<button class="w3-button w3-section w3-teal w3-ripple">Submit </button></p>
+
+</form>
+
+</div>
+
+</body>
+</html> 
+

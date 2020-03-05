@@ -1,26 +1,10 @@
-<!DOCTYPE html>
 <html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title>My First Dashboard</title>
-    </head>
-    <body>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-        <h1> Test Plotly Graph </h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="chart" id="line">
-                        <script>
-                            var line = {{plot}};
-                            <h4> "crossing the line dec" </h4>
-                            Plotly.plot('line',graphs,{});
-                            <h4> "crossing the plotly.plot checkmark" </h4>
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+<div class="chart" id="bargraph">
+    <script>
+        var graphs = {{v | safe}};
+        Plotly.plot('bargraph', graphs,{});
+    </script>
+</div>
 </html>

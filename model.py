@@ -1,51 +1,19 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-import pickle
-from sklearn.linear_model import LinearRegression
-from sklearn import metrics
-from sklearn.model_selection import train_test_split 
+import pandas as pd 
 
 
-def categorical_to_continuous(df):
-    lst = []
-    for i in df.columns:
-        if df[i].dtype == "object":
-            if len(df[i].unique())>5:
-                lst.append(i)
-            else:
-                df[i] = df[i].astype("category")
-                df[i] = df[i].cat.codes
-        else:
-            if 1.*df[i].nunique()/df[i].count() > 0.25: #i might need to change the threshold
-                lst.append(i)
-
-    return lst
-
-
-def fill_nan_vals (df):
-    for i in df.columns:
-        df[i] = df[i].replace('',np.nan, inplace = True)
-
-    for i in df.columns:
-        df[i] = df[i].replace(np.inf,np.nan, inplace = True)
-    
-    return df.fillna(0)
-
-def plot_roc_curve(fpr,tpr):
-    # print("the false positive rate array is")
-    # print(fpr)
-    # print("the true positive rate array is")
-    # print(tpr)
-    plt.plot(fpr, tpr, color='orange', label = 'AUC = %0.2f' % 0.5)
-    plt.plot([0, 1], [0, 1], color='darkblue', linestyle='--')
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('Receiver Operating Characteristic (ROC) Curve')
-    plt.legend()
-    plt.show()
 
 def confusion_matrix(Y_pred,Y_test,threshold):
+    """
+    Function to create a confusion matrix based on the values in the predicted outcome/score and the test set divided on
+    the threshold.
+
+    Args: a numpy.ndarray with predicted values
+          a numpy.ndarray with actual values
+          an integer
+    
+    Returns: the confusion matrix which is a numpy.ndarray itself
+    """
     #i am assuming its 0 and 1 what is the binary values are 1 or 2. Probably using np.unique
     conf_arr = [[0,0],[0,0]]
     for i in range(len(Y_test)):
@@ -64,14 +32,21 @@ def confusion_matrix(Y_pred,Y_test,threshold):
 
 
 def main_imp(fname, target_feature):
-    #use the filename when uploading the csv
-    dataset = pd.read_csv('train.csv')
-    pred_var = "Survived" #this needs to have its own inputs
-    Y = dataset[pred_var] #target variable
+    """
+    Function to preprocess the data and get the target feature. It further creates a Linear Regression model and trains it. 
+    It is used to get the false positve rates and the the true positive rates for a particular confusion matrix and return it
+    as a dataframe so that the points can be plotted.
+
+    Args: a string with the name of the file
+          a string with the name of the target feature
+    
+    Returns: a pandas.DataFrame
+    """
+    dataset = pd.read_csv(fname)
+    pred_var = target_feature 
+    Y = dataset[pred_var]
     dataset = dataset.drop([pred_var], axis = 1)
-    drop_lst = categorical_to_continuous(dataset)
-    dataset = dataset.drop(drop_lst, axis = 1)
-    dataset = fill_nan_vals(dataset)
+    dataset = dataset.fillna(dataset.mean())
     X = dataset
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
     regressor = LinearRegression().fit(X_train,Y_train)
@@ -79,14 +54,15 @@ def main_imp(fname, target_feature):
 
     tpr = []
     fpr = []
-    lst = np.linspace(0,1,10)
+    temp_conf_mtr = []
+    lst = np.linspace(0,1,1000)
     Y_test = Y_test.to_numpy()
     for i in lst:
         matrix = confusion_matrix(Y_pred,Y_test,i)
         tpr.append(matrix[0][0]/(matrix[0][0]+matrix[1][0]))
         fpr.append(1 - (matrix[1][1]/(matrix[0][1]+matrix[1][1])))
+        temp_conf_mtr.append(matrix)
     
-    return fpr,tpr
-    # plot_roc_curve(fpr,tpr)
-    # print("ML model running succesfully")
-    # pickle.dump(regressor,open(".../model.pkl","wb"))
+    dictionary = {'fpr':fpr, 'tpr':tpr, 'confusionMTR':temp_conf_mtr, 'threshold':lst}
+    df_1 = pd.DataFrame(dictionary)
+    return df_1
