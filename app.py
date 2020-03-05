@@ -32,10 +32,10 @@ def upload_file(req):
 
         tmp_fname = "temporary"
         while os.path.isfile(tmp_fname):
-            tmp_fname = temp_file
+            tmp_fname = "temporary"
         
-        TEMP_FPATH = '/Users/libraryuser/Desktop/'
-        ACTUAL_FILEPATH = '/Users/libraryuser/Desktop/linear-regression-visualiser'
+        TEMP_FPATH = os.path.expanduser("~/Desktop")
+        ACTUAL_FILEPATH = os.getcwd()
         f.save(os.path.join(TEMP_FPATH, tmp_fname))
 
         if os.stat(os.path.join(TEMP_FPATH, tmp_fname)).st_size:
