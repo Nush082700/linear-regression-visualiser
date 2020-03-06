@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, url_for, redirect
 import model as mdl
 import plotly
 import plotly.graph_objs as go
-import plotly.figure_factory as ff
+# import plotly.figure_factory as ff
 import plotly.io as pio
 import json
 
