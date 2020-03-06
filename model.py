@@ -52,7 +52,8 @@ def main_imp(fname, lst_of_args):
         dataset = pd.read_excel(fname, headers = None)
     else:
         return []
-
+    if target_feature not in dataset.columns:
+        return [1]
     pred_var = target_feature 
     Y = dataset[pred_var]
     dataset = dataset.drop([pred_var], axis = 1)

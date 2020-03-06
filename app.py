@@ -136,7 +136,9 @@ def result():
     val_lst = list(to_predict_list.values())
     datafrm = mdl.main_imp(f_name,val_lst)
     if len(datafrm) == 0:
-        return render_template('error.html')
+        return render_template('error.html', l = "WRONG INPUT TYPE")
+    elif len(datafrm) == 1:
+        return render_template('error.html', v = "THE COLUMN DOESN'T EXIST")
     else:
         temp_json = create_line_plot(datafrm)
         return render_template('index.html', v = temp_json)

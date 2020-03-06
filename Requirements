@@ -1,4 +1,4 @@
-Requirements:
+- Can be downloaded by using pip3 install and then add values from the following list:[Requirements]
 1. Flask
 2. Plotly
 3. Numpy
@@ -22,5 +22,5 @@ input the name of the class based on the csv uploaded.
 
 Assumptions made:
 1. The predicted class is binary coded as 0 and 1.
-2. The uploaded file is either a csv file or an excel file. If selected the other button, it takes you to an error page.
+2. The uploaded file is either a csv file or an excel file. If selected the other button, it takes you to an error page. Also takes you to an error page, if the a field name is entered which doesn't exist in the data frame.
 3. The fields are continuous. 
