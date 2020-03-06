@@ -16,7 +16,6 @@ def confusion_matrix(Y_pred,Y_test,threshold):
     
     Returns: the confusion matrix which is a numpy.ndarray itself
     """
-    #i am assuming its 0 and 1 what is the binary values are 1 or 2. Probably using np.unique
     conf_arr = [[0,0],[0,0]]
     for i in range(len(Y_test)):
         if int(Y_test[i]) == 1:
@@ -33,7 +32,7 @@ def confusion_matrix(Y_pred,Y_test,threshold):
 
 
 
-def main_imp(fname, target_feature):
+def main_imp(fname, lst_of_args):
     """
     Function to preprocess the data and get the target feature. It further creates a Linear Regression model and trains it. 
     It is used to get the false positve rates and the the true positive rates for a particular confusion matrix and return it
@@ -44,7 +43,16 @@ def main_imp(fname, target_feature):
     
     Returns: a pandas.DataFrame
     """
-    dataset = pd.read_csv(fname)
+    target_feature = lst_of_args[0]
+    t_up_file = lst_of_args[1]
+
+    if t_up_file == 'csv':
+        dataset = pd.read_csv(fname, sep = ',')
+    elif t_up_file == 'excel':
+        dataset = pd.read_excel(fname, headers = None)
+    else:
+        return []
+
     pred_var = target_feature 
     Y = dataset[pred_var]
     dataset = dataset.drop([pred_var], axis = 1)

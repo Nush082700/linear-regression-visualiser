@@ -3,13 +3,24 @@ Requirements:
 2. Plotly
 3. Numpy
 4. Pandas
-4. Sklearn
+5. Sklearn
+6. xlrd
 
-All the csv files inteded for testing are in the folder csv_files
-Details:
+
+The csv files with their predicted classes
 1. for sonar_csv
     - predicted class: Class
 2. for pima-indians-diabetes
     - predicted class: 1
+3. for nba-logreg
+    - predicted class: TARGET_5Yrs
+4. for heart
+    - predicted class: pred
 
+To run the above, go to the directory and write 'python3 app.py'. Copy paste the link shown in the terminal and
+input the name of the class based on the csv uploaded.
 
+Assumptions made:
+1. The predicted class is binary coded as 0 and 1.
+2. The uploaded file is either a csv file or an excel file. If selected the other button, it takes you to an error page.
+3. The fields are continuous. 

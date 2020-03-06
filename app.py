@@ -79,7 +79,7 @@ def create_line_plot (dff):
                 "False Positive : %{text[0][1]:,}<br>" +
                 "False Negative: %{text[1][0]:,}<br>" +
                 "True Negative: %{text[1][1]:,} <br>" +
-                "Threshold: %{marker.size:,} <br>" +
+                "Threshold: %{marker.size: .2f} <br>" +
                 "<extra></extra>",
             showlegend = False,
             textposition = "top left",
@@ -134,9 +134,12 @@ def result():
     f_name = upload_file(request)
     to_predict_list = request.form.to_dict()
     val_lst = list(to_predict_list.values())
-    datafrm = mdl.main_imp(f_name,val_lst[-1])
-    temp_json = create_line_plot(datafrm)
-    return render_template('index.html', v = temp_json)
+    datafrm = mdl.main_imp(f_name,val_lst)
+    if datafrm == []:
+        return render_template('error.html')
+    else:
+        temp_json = create_line_plot(datafrm)
+        return render_template('index.html', v = temp_json)
 
 if __name__ == '__main__':
     app.run(debug = True)     
