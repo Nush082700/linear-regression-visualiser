@@ -135,7 +135,7 @@ def result():
     to_predict_list = request.form.to_dict()
     val_lst = list(to_predict_list.values())
     datafrm = mdl.main_imp(f_name,val_lst)
-    if datafrm == []:
+    if len(datafrm) == 0:
         return render_template('error.html')
     else:
         temp_json = create_line_plot(datafrm)

@@ -47,7 +47,7 @@ def main_imp(fname, lst_of_args):
     t_up_file = lst_of_args[1]
 
     if t_up_file == 'csv':
-        dataset = pd.read_csv(fname, sep = ',')
+        dataset = pd.read_csv(fname)
     elif t_up_file == 'excel':
         dataset = pd.read_excel(fname, headers = None)
     else:
