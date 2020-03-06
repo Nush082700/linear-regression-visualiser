@@ -135,8 +135,9 @@ def result():
     to_predict_list = request.form.to_dict()
     val_lst = list(to_predict_list.values())
     datafrm = mdl.main_imp(f_name,val_lst)
+    print(datafrm)
     if len(datafrm) == 0:
-        return render_template('error.html', l = "WRONG INPUT TYPE")
+        return render_template('error.html', v = "WRONG INPUT TYPE")
     elif len(datafrm) == 1:
         return render_template('error.html', v = "THE COLUMN DOESN'T EXIST")
     else:
